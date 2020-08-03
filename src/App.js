@@ -1,26 +1,82 @@
-import React from 'react';
+import React, { Component } from 'react';
+import NewStaff from './NewStaff';
+import Staff from './Staff';
 import logo from './logo.svg';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor(props){
+    super(props)
+
+    this.state = {
+      staffs: [
+        {
+          id: 1,
+          name: 'David',
+          position: 'Leader'
+        },
+        {
+          id: 2,
+          name: 'Annie',
+          position: 'Co-Leader'
+        },
+        {
+          id: 3,
+          name: 'Vivian',
+          position: 'Manager'
+        },
+      ]
+    }
+  }
+
+  addStaff = (data)=>{
+    var newStaff ={
+      id: Date.now(),
+      ...data
+    }
+
+    var newList = [...this.state.staffs, newStaff]
+    this.setState({
+      staffs: newList
+    })
+  }
+  removeStaff = (id)=>{
+    var staffs = this.state.staffs
+
+    var filtered = staffs.filter((item)=>{
+      return item.id != id
+    })
+
+    this.setState({
+      staffs: filtered
+    })
+  }
+  updateStaff = ()=>{}
+
+  render(){
+    return(
+      <div className="wrap">
+        <div className="container">
+          <div className="staffs">
+            {
+              this.state.staffs.map((item)=>{
+                var itemProps = {
+                  key: item.id,
+                  ...item,
+                  removeStaff: this.removeStaff
+                }
+                return(
+                  <Staff {...itemProps}/>
+                )
+              })
+            }
+            
+            <NewStaff addStaff={this.addStaff}/>
+          </div>
+        </div>
+	    </div>
+    )
+  }
 }
 
 export default App;
