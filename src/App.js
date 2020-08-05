@@ -51,7 +51,15 @@ class App extends Component {
       staffs: filtered
     })
   }
-  updateStaff = ()=>{}
+  updateStaff = (id, data)=>{
+    var staffs = this.state.staffs
+    var updated = staffs.map((item)=>{
+      return (item.id == id) ? {...item,...data} : item
+    })
+    this.setState({
+      staffs:updated
+    })
+  }
 
   render(){
     return(
@@ -63,7 +71,8 @@ class App extends Component {
                 var itemProps = {
                   key: item.id,
                   ...item,
-                  removeStaff: this.removeStaff
+                  removeStaff: this.removeStaff,
+                  updateStaff: this.updateStaff
                 }
                 return(
                   <Staff {...itemProps}/>
