@@ -3,8 +3,8 @@
 body{
 	background: repeating-linear-gradient(
 		45deg,
-	  	rgb(243, 80, 5),
-	  	rgba(245, 72, 3, 0.692) 1em,
+	  	rgb(255, 81, 0),
+	  	rgb(255, 81, 0) 1em,
 	  	rgba(0, 0, 0, 0.877) 1em,
 	 	rgba(243, 240, 240, 0.801) 2em
 	);

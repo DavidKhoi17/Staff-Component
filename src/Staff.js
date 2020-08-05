@@ -6,7 +6,9 @@ class Staff extends Component {
     
     this.state = {
       nameUpdate : false,
-      nameInput : this.props.name
+      nameInput : this.props.name,
+      positionUpdate : false,
+      positionInput : this.props.position
     }
   }
 
@@ -33,6 +35,30 @@ class Staff extends Component {
     })
   }
 
+  handlePositionEdit = (e)=>{
+    this.setState({
+      positionUpdate : true
+    })
+  }
+
+  handlePositionBlur = (e)=>{
+    var id = this.props.id
+    var data = {
+      position: this.state.positionInput
+    }
+    this.props.updateStaff(id, data)
+    this.setState({
+      positionUpdate: false
+    })
+  }
+
+  handlePositionChange = (e)=>{
+    this.setState({
+      positionInput: e.target.value
+    })
+  }
+
+
   removeBtn = (e)=>{
     var id = this.props.id
     this.props.removeStaff(id)
@@ -46,12 +72,16 @@ class Staff extends Component {
                 <div className="staff-name" onDoubleClick={this.handleNameEdit}>
                   {
                     this.state.nameUpdate == true ? (
-                      <input type="text" className="form-control" value={this.state.nameInput} onBlur={this.handleNameBlur} onChange={this.handleNameChange}/>
+                      <input type="text" autoFocus className="form-control" value={this.state.nameInput} onBlur={this.handleNameBlur} onChange={this.handleNameChange}/>
                     ) : this.props.name
                   }
                 </div>
-                <div className="staff-position">
-                    {this.props.position}
+                <div className="staff-position" onDoubleClick={this.handlePositionEdit}>
+                {
+                  this.state.positionUpdate == true ? (
+                    <input type="text" autoFocus className="form-control" value={this.state.positionInput} onBlur={this.handlePositionBlur} onChange={this.handlePositionChange}/>
+                  ) : this.props.position
+                }
                 </div>
             </div>
         </div>
